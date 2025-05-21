@@ -1,0 +1,15 @@
+textarea {
+    width: 100%;
+    height: 150px;
+    resize: vertical;
+    overflow-y: auto;
+}
+#toastContainer {
+    /* Add custom animations or styles */
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -60%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
