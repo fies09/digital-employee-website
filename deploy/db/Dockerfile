@@ -1,5 +1,5 @@
 # 使用 PostgreSQL 16 基础镜像
-FROM postgres:16
+FROM registry.cn-chengdu.aliyuncs.com/fast_ai/postgres:16
 
 # 安装 pgvector
 RUN apt-get update && \
