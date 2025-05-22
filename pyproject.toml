@@ -1,0 +1,31 @@
+[project]
+name = "digital-employee-website"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Mr.Fan"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi (>=0.104.1)",
+    "uvicorn[standard] (>=0.24.0)",
+    "pydantic (>=2.5.0)",
+    "sqlalchemy (>=2.0.23)",
+    "asyncpg (>=0.29.0)",
+    "redis (>=5.0.1)",
+    "pyjwt (>=2.8.0)",
+    "cryptography (>=41.0.8)",
+    "python-multipart (>=0.0.6)",
+    "python-dotenv (>=1.0.0)",
+    "alembic (>=1.13.0)",
+    "psycopg2-binary (>=2.9.9)",
+    "passlib (>=1.7.4,<2.0.0)",
+    "pydantic-settings (>=2.9.1,<3.0.0)"
+]
+
+packages = [{include = "digital_employee_website"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

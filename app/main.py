@@ -12,14 +12,13 @@ from uuid import uuid4
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from app.api.v1 import auth
 import logging
 import time
 
 from app.core.config import settings
 from app.core.database import engine, Base
-from app.core.logging import log_stream_generator
-from app.api.v1 import users, items
-from utils.common import get_request_id, get_user_id
+
 
 class RequestIDMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
@@ -49,9 +48,7 @@ app.add_middleware(
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 # 注册路由
-app.include_router(users.router, prefix="/api/v1")
-app.include_router(items.router, prefix="/api/v1")
-
+app.include_router(auth.router, prefix="/api/v1")
 
 # 中间件记录所有请求
 @app.middleware("http")

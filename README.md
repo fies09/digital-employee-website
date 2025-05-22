@@ -551,3 +551,10 @@ docker-compose logs -f app
 - 集成Prometheus指标(可选)
 - 配置ELK日志收集(可选)
 - 健康检查端点监控
+
+## 12. 使用流程   
+cd ../api
+复制.env.base为.env 配置需和deploy下的.env相对应
+poetry install 安装依赖
+执行poetry run alembic upgrade head 迁移数据库
+poetry run python -m uvicorn app.main:app --reload 运行后端
