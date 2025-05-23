@@ -1,5 +1,5 @@
 # 使用轻量级 Ubuntu 22.04 镜像
-FROM ubuntu:22.04
+FROM registry.cn-chengdu.aliyuncs.com/fast_ai/ubuntu:22.04
 
 # 设置环境变量
 ENV PYTHONUNBUFFERED=1 \

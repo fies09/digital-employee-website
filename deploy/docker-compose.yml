@@ -1,0 +1,49 @@
+name: digital-employee-website
+services:
+  api:
+    build:
+      context: ..  # 指向项目根目录，包含 pyproject.toml
+      dockerfile: app/Dockerfile  # 相对于根目录的 Dockerfile 路径
+    container_name: digital_employee_api
+    environment:
+      # 数据库配置
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1232456}
+      POSTGRES_DB: ${POSTGRES_DB:-digital_employee}
+      POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      
+      # 数据库连接池配置
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-20}
+      DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-50}
+      
+      # 文件存储配置
+      UPLOAD_DIR: ${UPLOAD_DIR:-/app/resources}
+      HOST_UPLOAD_DIR: ${HOST_UPLOAD_DIR}
+      MAX_FILE_SIZE: ${MAX_FILE_SIZE:-50000000}
+      
+      # 应用配置
+      DEBUG: ${DEBUG:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-DEBUG}
+      NUM_THREADS: ${NUM_THREADS:-4}
+      
+      # OpenAI 配置
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_API_BASE: ${OPENAI_API_BASE}
+      MODEL_NAME: ${MODEL_NAME:-gpt-4o}
+      EMBEDDINGS_MODEL_NAME: ${EMBEDDINGS_MODEL_NAME:-text-embedding-3-large}
+    
+    ports:
+      - "8088:8000"
+    
+    volumes:
+      - "${HOST_UPLOAD_DIR:-./data}:/app/resources"
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://192.168.1.31:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

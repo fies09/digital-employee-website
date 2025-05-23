@@ -1,4 +1,4 @@
-name: digital-employee-website_middleware
+name: digital-employee-middleware
 services:
   middleware_postgres:
     build:
@@ -23,7 +23,7 @@ services:
       retries: 5
     restart: unless-stopped
     networks:
-      falao-app-network:
+      digital-employee-network:
         aliases:
           - db
 
@@ -31,5 +31,5 @@ volumes:
   middleware_postgres_data:
 
 networks:
-  falao-app-network:
+  digital-employee-network:
     driver: bridge
