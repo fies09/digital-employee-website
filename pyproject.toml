@@ -1,30 +1,34 @@
-[project]
+[tool.poetry]
 name = "digital-employee-website"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "Mr.Fan"}
-]
+description = "Digital Employee Website API"
+authors = ["Mr.Fan"]
 readme = "README.md"
-requires-python = ">=3.11"
-dependencies = [
-    "fastapi (>=0.104.1)",
-    "uvicorn[standard] (>=0.24.0)",
-    "pydantic (>=2.5.0)",
-    "sqlalchemy (>=2.0.23)",
-    "asyncpg (>=0.29.0)",
-    "redis (>=5.0.1)",
-    "pyjwt (>=2.8.0)",
-    "cryptography (>=41.0.8)",
-    "python-multipart (>=0.0.6)",
-    "python-dotenv (>=1.0.0)",
-    "alembic (>=1.13.0)",
-    "psycopg2-binary (>=2.9.9)",
-    "passlib (>=1.7.4,<2.0.0)",
-    "pydantic-settings (>=2.9.1,<3.0.0)"
-]
+packages = [{include = "app"}]
 
-packages = [{include = "digital_employee_website"}]
+[tool.poetry.dependencies]
+python = ">=3.11"
+httpx = ">=0.28.1,<0.29.0"
+greenlet = ">=3.2.2,<4.0.0"
+uvicorn = {extras = ["standard"], version = ">=0.24.0"}
+fastapi = ">=0.104.1"
+pydantic = ">=2.5.0"
+sqlalchemy = ">=2.0.23"
+asyncpg = ">=0.29.0"
+redis = ">=5.0.1"
+pyjwt = ">=2.8.0"
+cryptography = ">=41.0.8"
+python-multipart = ">=0.0.6"
+python-dotenv = ">=1.0.0"
+alembic = ">=1.13.0"
+psycopg2-binary = ">=2.9.9"
+pydantic-settings = ">=2.9.1,<3.0.0"
+pytz = "^2025.2"
+
+[[tool.poetry.source]]
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+priority = "primary"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

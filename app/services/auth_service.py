@@ -10,7 +10,7 @@ from sqlalchemy import select
 from fastapi import HTTPException, status
 from datetime import timedelta
 from ..models.merchant import Merchant
-from ..schemas.auth import AutoRegisterRequest
+from app.schemas.ResponseModel.auth import AutoRegisterRequest
 from ..core.security import create_access_token, encrypt_app_secret, ACCESS_TOKEN_EXPIRE_MINUTES
 from .bilin_api_service import BilinAPIService
 import logging

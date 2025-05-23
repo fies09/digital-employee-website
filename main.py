@@ -184,7 +184,6 @@ async def health_check(request: Request):
             },
             "environment": {
                 "debug": settings.DEBUG,
-                "database_type": settings.DATABASE_TYPE
             },
             "routes": {
                 "auth_imported": router_imported,
@@ -205,7 +204,6 @@ async def health_check(request: Request):
             },
             "environment": {
                 "debug": settings.DEBUG,
-                "database_type": settings.DATABASE_TYPE
             }
         }
 
