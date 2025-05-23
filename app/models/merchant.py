@@ -23,3 +23,6 @@ class Merchant(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+    def __repr__(self):
+        return f"<Merchant(merchant_id='{self.merchant_id}', user_source='{self.user_source}')>"

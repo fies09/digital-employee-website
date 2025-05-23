@@ -5,18 +5,54 @@
 # @Project    : PyCharm
 # @File       : database.py
 # @Description:
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from .config import settings
 
-engine = create_async_engine(settings.DATABASE_URL, echo=settings.DEBUG)
-SessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+from app.core.log import logger
+from app.core.settings import settings
+
+
+
+# 数据库引擎配置参数
+engine_kwargs = {
+    "pool_pre_ping": True,  # 连接池预检查
+    "echo": settings.DEBUG,  # 调试模式下输出SQL语句
+}
+
+engine_kwargs.update({
+    "pool_size": settings.DB_POOL_SIZE,
+    "max_overflow": settings.DB_POOL_OVERFLOW,
+    "pool_timeout": settings.DB_POOL_TIMEOUT,
+    "pool_recycle": settings.DB_POOL_RECYCLE,
+})
+logger.info("使用PostgreSQL数据库配置")
+
+
+# 创建数据库引擎
+engine = create_engine(settings.SYNC_DATABASE_URL, **engine_kwargs)
+
+# 创建会话工厂
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# 创建基类
 Base = declarative_base()
 
-async def get_db():
-    async with SessionLocal() as session:
-        try:
-            yield session
-        finally:
-            await session.close()
+def get_db():
+    """数据库依赖注入"""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def create_tables():
+    """创建数据库表"""
+    try:
+        logger.info("开始创建数据库表...")
+        logger.info(f"使用数据库URL: {settings.SYNC_DATABASE_URL}")
+        Base.metadata.create_all(bind=engine)
+        logger.info("数据库表创建完成")
+    except Exception as e:
+        logger.error(f"创建数据库表失败: {str(e)}")
+        raise
