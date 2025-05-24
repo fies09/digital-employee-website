@@ -73,7 +73,7 @@ app.add_middleware(
 )
 
 # 静态文件挂载（如果目录存在）
-if os.path.exists("app/assets"):
+if os.path.exists("assets"):
     app.mount("/app/assets", StaticFiles(directory="app/assets"), name="assets")
 
 # 注册路由
@@ -184,7 +184,6 @@ async def health_check(request: Request):
             },
             "environment": {
                 "debug": settings.DEBUG,
-                "database_type": settings.DATABASE_TYPE
             },
             "routes": {
                 "auth_imported": router_imported,
@@ -205,7 +204,6 @@ async def health_check(request: Request):
             },
             "environment": {
                 "debug": settings.DEBUG,
-                "database_type": settings.DATABASE_TYPE
             }
         }
 

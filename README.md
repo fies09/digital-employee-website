@@ -13,3 +13,13 @@ poetry install
 ```bash
 poetry run python -m uvicorn app.main:app --reload
 ``` 
+
+## 数据库迁移
+
+```bash
+# 生成初始迁移文件
+poetry run alembic revision --autogenerate -m "Initial migration"
+
+# 执行迁移
+poetry run alembic upgrade head
+```

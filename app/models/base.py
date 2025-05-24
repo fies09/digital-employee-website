@@ -10,7 +10,7 @@ from pathlib import Path
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from app.core.config import settings
+from app.core.settings import settings
 
 # 动态添加项目根目录到 PYTHONPATH
 root_dir = Path(__file__).resolve().parent.parent.parent
@@ -19,11 +19,11 @@ if str(root_dir) not in sys.path:
 
 # 创建异步引擎
 engine = create_async_engine(
-    settings.DATABASE_URL,
+    settings.ASYNC_DATABASE_URL,  # 使用异步数据库 URL
     echo=settings.DB_ECHO,
     pool_pre_ping=True,
     pool_size=settings.DB_POOL_SIZE,
-    max_overflow=settings.DB_MAX_OVERFLOW,
+    max_overflow=settings.DB_POOL_OVERFLOW,
     connect_args={
         "command_timeout": 600  # 设置所有语句默认超时时间为 600 秒
     }

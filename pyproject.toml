@@ -24,6 +24,7 @@ alembic = ">=1.13.0"
 psycopg2-binary = ">=2.9.9"
 pydantic-settings = ">=2.9.1,<3.0.0"
 pytz = "^2025.2"
+pgvector = "^0.4.1"
 
 [[tool.poetry.source]]
 name = "aliyun"

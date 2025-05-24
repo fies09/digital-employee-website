@@ -5,17 +5,16 @@ from pathlib import Path
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-
+import pgvector.sqlalchemy
+from app.models.merchant import Merchant
+from app.models.base import Base
 from alembic import context
 
-# 添加项目根目录到sys.path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from app.core.settings import settings
 
-# 导入配置和模型
-from config.settings import settings
-from db.base import Base
-import pgvector.sqlalchemy
-from models.merchant import Merchant
+# 添加项目根目录到sys.path
+root_dir = str(Path(__file__).resolve().parent.parent.parent)
+sys.path.insert(0, root_dir)
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
