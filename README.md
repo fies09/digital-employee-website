@@ -10,9 +10,12 @@ poetry install
 
 ## 运行
 
-```bash
-poetry run python -m uvicorn app.main:app --reload
-``` 
+# 开发环境（推荐）
+poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir app --log-level info
+
+# 生产环境
+poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level warning
+
 
 ## 数据库迁移
 
